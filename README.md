@@ -88,8 +88,8 @@ var BOMB_GAME_BAKURETU_BOMB_SOUND = "off";
 
 ```
 bomb_js/
-├── index.html              # メインゲーム（無音版）
-├── index_sound.html        # メインゲーム（音声付き）
+├── index.html              # ゲームHTML（無音版）
+├── index_sound.html        # ゲームHTM+（音声付き）
 ├── bakuretubomb.js         # ゲームプログラム本体
 ├── bakuretubomb104.min.js  # ゲームプログラム本体（圧縮版）
 ├── enchant.min.js          # enchant.jsゲームフレームワーク
@@ -104,6 +104,12 @@ bomb_js/
 ```
 
 ### ゲームの改造
+
+`index.html`の読み込みJSを`bakuretubomb104.min.js`から下記に変更してください
+
+```
+<script src="bakuretubomb.js"></script>
+```
 
 `bakuretubomb.js`を変更してください。<br />
 `enchant.js`というゲームエンジンを使用しています。
