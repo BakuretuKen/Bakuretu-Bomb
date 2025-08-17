@@ -58,7 +58,7 @@ cd bomb_js
 
 ### ゲーム設定
 
-HTMLファイル内の以下の変数を変更してゲームをカスタマイズできます：
+`index.html`ファイル内の以下の変数を変更してゲームをカスタマイズできます：
 
 ```javascript
 // キャンバスサイズ
@@ -78,7 +78,7 @@ var BOMB_GAME_BAKURETU_BOMB_SOUND = "off";
 
 ### 画像カスタマイズ
 
-以下の画像ファイルを置き換えることで、ゲーム画像を変更できます：
+以下の画像ファイルを置き換えることで、ゲーム画像を変更できます。
 
 - `bomb_game_01.jpg` - ゲーム初期画像
 - `bomb_game_02.jpg` - ボム破壊後画像
@@ -111,7 +111,7 @@ bomb_js/
 <script src="bakuretubomb.js"></script>
 ```
 
-`bakuretubomb.js`を変更してください。<br />
+`bakuretubomb.js`に対してコーディングを行い変更してください。<br />
 `enchant.js`というゲームエンジンを使用しています。
 
 手元のPCでWEBサーバを立ち上げるなどして、サーバ経由で動作確認を行ってください。<br />
