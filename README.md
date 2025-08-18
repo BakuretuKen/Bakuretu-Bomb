@@ -1,6 +1,6 @@
 # 爆裂BOMB (Bakuretu Bomb)
 
-![タイトル画像](img/title.jpg)
+[![タイトル画像](img/title.jpg)](https://bakuretuken.github.io/bakuretu-bomb/)
 
 落下するボムをクリックして画像の一部を消去するJavaScriptブラウザゲームです。enchant.jsフレームワークを使用したゲームです。
 
