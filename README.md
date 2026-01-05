@@ -90,8 +90,7 @@ var BOMB_GAME_BAKURETU_BOMB_SOUND = "off";
 bomb_js/
 ├── index.html              # ゲームHTML（無音版）
 ├── index_sound.html        # ゲームHTM+（音声付き）
-├── bakuretubomb.js         # ゲームプログラム本体
-├── bakuretubomb104.min.js  # ゲームプログラム本体（圧縮版）
+├── bakuretubomb105.js      # ゲームプログラム本体
 ├── enchant.min.js          # enchant.jsゲームフレームワーク
 ├── bomb_sound.mp3          # 音声ファイル
 ├── bomb_sound.wav          # 音声ファイル
@@ -105,13 +104,13 @@ bomb_js/
 
 ### ゲームの改造
 
-`index.html`の読み込みJSを`bakuretubomb104.min.js`から下記に変更してください
+`index.html`の読み込みJSを`bakuretubomb105.js`を改造して使用してください。
 
 ```
-<script src="bakuretubomb.js"></script>
+<script src="bakuretubomb105.js"></script>
 ```
 
-`bakuretubomb.js`に対してコーディングを行い変更してください。<br />
+`bakuretubomb105.js`に対してコーディングを行い変更してください。<br />
 `enchant.js`というゲームエンジンを使用しています。
 
 手元のPCでWEBサーバを立ち上げるなどして、サーバ経由で動作確認を行ってください。<br />
@@ -122,7 +121,7 @@ bomb_js/
 python -m http.server 8000
 
 # Node.jsの場合
-npx http-server
+npx http-server -p 8000
 
 # PHPの場合
 php -S localhost:8000
@@ -137,8 +136,7 @@ php -S localhost:8000
 - 本ゲームプログラム・画像はMITライセンスです。自由にご利用ください
 - 使用しているゲームエンジン [enchant.js](https://github.com/wise9/enchant.js/) もMITライセンスです
 
-## クレジット
-bakuretuKen 2013
-
 ---
+
+bakuretuKen 2013<br />
 @see https://bakuretuken.com/bomb/

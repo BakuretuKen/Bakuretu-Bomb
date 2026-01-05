@@ -42,15 +42,18 @@ window.onload = function()
     game.onload = function()
     {
     // === 初期化 ===
-    
+
     imgFront = game.assets["bomb_game_01.jpg"]._element; // 初期画像
     imgBack = game.assets["bomb_game_02.jpg"]._element;; // 削除後画像
     imgEdge = game.assets["bomb_game_03.jpg"]._element;; // 淵画像
-    
+
     sf.context.drawImage(imgFront, 0, 0);
     sfBuff.context.drawImage(imgEdge, 0, 0);
+
+    sf._dirty = true;
+    sfBuff._dirty = true;
     spriteScreen.image = sf;
-    
+
     spriteScreen.addEventListener('touchstart', function(e)
     {
         if (game.mode != 0) return;
@@ -71,13 +74,13 @@ window.onload = function()
         game.createBoms();
         scene1.addChild(game.timeLabel);
     });
-    
+
     game.createBoms = function()
     {
         for (var n = 0; n < 5; n++) {
             game.bomb[n] = new Sprite(64, 64);
             game.bomb[n].image = game.assets["bomb_icon_bomb.png"];
-            
+
             game.bomb[n].init = function()
             {
                 this.x = rand(BOMB_GAME_WIDTH - 128) + 64;
@@ -86,7 +89,7 @@ window.onload = function()
                 this.baku = rand(BOMB_GAME_BAKURETU_BOMB_RATE);
                 if (this.baku == 1) this.frame = 2; else this.frame = 0;
             };
-            
+
             game.bomb[n].addEventListener("touchstart", function(e)
             {
                 if (this.baku == 1) {
@@ -94,7 +97,7 @@ window.onload = function()
                 } else {
                     clearBlock(this.x + 32, this.y + 32);
                 }
-                
+
                 this.init();
                 if (BOMB_GAME_BAKURETU_BOMB_SOUND == "on") {
                     if (window.Audio) {
@@ -103,7 +106,7 @@ window.onload = function()
                     }
                 }
             });
-            
+
             game.bomb[n].addEventListener('enterframe', function()
             {
                 if (this.baku == 1) {
@@ -114,14 +117,14 @@ window.onload = function()
                 this.y += this.vy;
                 if (this.y > BOMB_GAME_HEIGHT) this.init();
             });
-            
+
             game.bomb[n].init();
-            
+
             scene1.addChild(game.bomb[n]);
-            
+
         } // for(n)
     };
-    
+
     // --- 残りタイム ---
     game.timeLabel.x = 10;
     game.timeLabel.y = 5;
@@ -142,7 +145,7 @@ window.onload = function()
         this.text = "" + time;
         game.timeLine++;
     });
-    
+
     // --- ゲームスタート・リスタート ボタン ---
     game.restart.image = game.assets["bomb_icon_menu.png"];
     game.restart.x = (BOMB_GAME_WIDTH/2) - (game.restart.width/2);
@@ -166,18 +169,18 @@ window.onload = function()
         game.createBoms();
         scene1.addChild(game.timeLabel);
     });
-    
+
     // === シーン1 初回実行 ===
-    
+
     scene1.addChild(spriteScreen);
-    
+
     scene1.addChild(game.restart);
-    
+
     game.replaceScene(scene1); // ゲームスタート
-    
-    
+
+
     }; // End of game.onload
-    
+
     game.start();
 };
 
@@ -207,7 +210,7 @@ function clearBlock(x, y)
     sfBuff.context.drawImage(imgBack, x-8, y-24, 16, 48, x-8, y-24, 16, 48);
     sfBuff.context.drawImage(imgBack, x-12, y-20, 24, 40, x-12, y-20, 24, 40);
     sfBuff.context.drawImage(imgBack, x-16, y-16, 32, 32, x-16, y-16, 32, 32);
-    
+
     // Set Buff Image on Main Context
     sf.context.drawImage(sfBuff._element, x-24-4, y-8-4, 48+8, 16+8, x-24-4, y-8-4, 48+8, 16+8);
     sf.context.drawImage(sfBuff._element, x-20-4, y-12-4, 40+8, 24+8, x-20-4, y-12-4, 40+8, 24+8);
