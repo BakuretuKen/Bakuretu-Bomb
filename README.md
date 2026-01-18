@@ -90,7 +90,7 @@ var BOMB_GAME_BAKURETU_BOMB_SOUND = "off";
 bomb_js/
 ├── index.html              # ゲームHTML（無音版）
 ├── index_sound.html        # ゲームHTM+（音声付き）
-├── bakuretubomb105.js      # ゲームプログラム本体
+├── bakuretubomb106.js      # ゲームプログラム本体
 ├── enchant.min.js          # enchant.jsゲームフレームワーク
 ├── bomb_sound.mp3          # 音声ファイル
 ├── bomb_sound.wav          # 音声ファイル
@@ -104,13 +104,13 @@ bomb_js/
 
 ### ゲームの改造
 
-`index.html`の読み込みJSを`bakuretubomb105.js`を改造して使用してください。
+`index.html`の読み込みJSを`bakuretubomb106.js`を改造して使用してください。
 
 ```
-<script src="bakuretubomb105.js"></script>
+<script src="bakuretubomb106.js"></script>
 ```
 
-`bakuretubomb105.js`に対してコーディングを行い変更してください。<br />
+`bakuretubomb106.js`に対してコーディングを行い変更してください。<br />
 `enchant.js`というゲームエンジンを使用しています。
 
 手元のPCでWEBサーバを立ち上げるなどして、サーバ経由で動作確認を行ってください。<br />
@@ -127,9 +127,64 @@ npx http-server -p 8000
 php -S localhost:8000
 ```
 
+
+## [オプション] アニメーション機能
+
+`anime_game`フォルダに「アニメーション機能を使用したゲーム」があります。
+
+アニメーション機能を使用する場合は、`index.html`ファイル内の以下の変数を追加してください。
+
+```js
+・・・省略・・・
+var BOMB_GAME_ANIME_IMAGE = 3; // アニメーション画像枚数（アニメ機能利用）
+var BOMB_GAME_ANIME_POSITION_X = 196; // アニメーション画像X位置
+var BOMB_GAME_ANIME_POSITION_Y = 118; // アニメーション画像Y位置
+var BOMB_GAME_ANIME_FRAME = 1; // アニメーション画像切り替えフレーム数
+var BOMB_GAME_ANIME_WAIT = 40; // アニメーション待ちフレーム数
+```
+
+`BOMB_GAME_ANIME_IMAGE` で「アニメーション画像枚数」を設定することでアニメーション機能を使用できます。<br />
+
+```js
+var BLOCK_GAME_ANIME_IMAGE = 5;
+```
+
+「bomb_game_anime.jpg」画像を用意してください。<br />
+画像は「アニメーション画像枚数」分の画像を縦に並べてください。<br />
+画像はJPEGフォーマットで用意してください。（縦横の画像サイズは8の倍数を推奨）
+
+**bomb_game_anime.jpg**
+
+![アニメーション画像](img/bomb_game_anime.jpg)
+
+アニメーション画像の表示位置を下記で設定します。
+
+```js
+var BOMB_GAME_ANIME_POSITION_X = 196; // アニメーション画像X位置
+var BOMB_GAME_ANIME_POSITION_Y = 118; // アニメーション画像Y位置
+```
+
+`BOMB_GAME_ANIME_FRAME` で「アニメーションフレーム間隔」を設定することでアニメーション速度を調整できます（フレーム設定）<br />
+設定数が大きいほどアニメーション速度が早くなります。
+
+`BOMB_GAME_ANIME_WAIT` で「アニメーション待ち時間」を設定することでアニメーションの待ち時間を調整できます（フレーム設定）<br />
+待ち時間が大きいほどアニメーションとアニメーションの間隔が長くなります。
+
+上記の設定だと、40フレーム経つと5枚のアニメーション画像が1フレーム間隔で表示されます。そして、また40フレームの待ちに入ります。<br />
+表示座標位置は (196, 118) です。
+
+**↓** リンククリックでアニメー書のプションのゲーム開始
+
+[**アニメーション ゲーム開始**](https://bakuretuken.github.io/bakuretu-bonba/)
+
+【特記事項】<br />
+正しい大きさでアニメ画像を作っても表示画像サイズがズレて表示されてしまう場合は、JPEG の DPI の問題の可能性が高いです。すべての JPEG画像の DPI を 72 に設定してください。
+
 ## 注意事項
 
 - 画像を更新したのに反映されない場合は、ブラウザのキャッシュをクリアしてください
+   - SHIFT + Ctrl + R (Windows)
+   - Shift + Command + R (Mac)
 
 ## ライセンス
 
@@ -138,5 +193,5 @@ php -S localhost:8000
 
 ---
 
-bakuretuKen 2013<br />
+bakuretuKen 2013-2026<br />
 @see https://bakuretuken.com/bomb/

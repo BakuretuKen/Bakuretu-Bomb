@@ -1,6 +1,23 @@
 /**
- * 爆裂BOMB JavaScript版 ver1.04
+ * 爆裂BOMB JavaScript版 ver1.06
  */
+
+// アニメーション設定
+if (typeof BOMB_GAME_ANIME_IMAGE == 'undefined') {
+    var BOMB_GAME_ANIME_IMAGE = 0; // アニメーション画像数（0以外でアニメーション有効）
+}
+if (typeof BOMB_GAME_ANIME_WAIT == 'undefined') {
+    var BOMB_GAME_ANIME_WAIT = 80; // アニメーション待ち時間
+}
+if (typeof BOMB_GAME_ANIME_FRAME == 'undefined') {
+    var BOMB_GAME_ANIME_FRAME = 1; // アニメーションフレーム間隔（アニメ速度）
+}
+if (typeof BOMB_GAME_ANIME_POSITION_X == 'undefined') {
+    var BOMB_GAME_ANIME_POSITION_X = 0; // アニメーション位置X
+}
+if (typeof BOMB_GAME_ANIME_POSITION_Y == 'undefined') {
+    var BOMB_GAME_ANIME_POSITION_Y = 0; // アニメーション位置Y
+}
 
 enchant();
 
@@ -17,6 +34,9 @@ if (window.Audio) {
 }
 var soundCount = 0;
 game.preload("bomb_icon_menu.png", "bomb_icon_bomb.png", "bomb_game_01.jpg", "bomb_game_02.jpg", "bomb_game_03.jpg");
+if (BOMB_GAME_ANIME_IMAGE > 0) {
+    game.preload("bomb_game_anime.jpg");
+}
 game.fps = BOMB_GAME_FPS;
 
 var imgFront = new Image();
@@ -37,6 +57,8 @@ game.timeLine = 0;
 game.timeLabel = new Label();
 game.restart = new Sprite(256, 64);
 
+var animeSprite = null;
+
 window.onload = function()
 {
     game.onload = function()
@@ -47,11 +69,17 @@ window.onload = function()
     imgBack = game.assets["bomb_game_02.jpg"]._element;; // 削除後画像
     imgEdge = game.assets["bomb_game_03.jpg"]._element;; // 淵画像
 
-    sf.context.drawImage(imgFront, 0, 0);
-    sfBuff.context.drawImage(imgEdge, 0, 0);
+    // アニメーション Sprite の初期化
+    if (BOMB_GAME_ANIME_IMAGE > 0) {
+        animeSprite = new AnimeSprite();
+    }
+
+    sf.context.drawImage(imgFront, 0, 0, BOMB_GAME_WIDTH, BOMB_GAME_HEIGHT);
+    sfBuff.context.drawImage(imgEdge, 0, 0, BOMB_GAME_WIDTH, BOMB_GAME_HEIGHT);
 
     sf._dirty = true;
     sfBuff._dirty = true;
+    spriteScreen.image = null;
     spriteScreen.image = sf;
 
     spriteScreen.addEventListener('touchstart', function(e)
@@ -67,8 +95,8 @@ window.onload = function()
         scene1.removeChild(game.restart);
         // ゲーム初期化
         game.timeLine = 0;
-        sf.context.drawImage(imgFront, 0, 0);
-        sfBuff.context.drawImage(imgEdge, 0, 0);
+        sf.context.drawImage(imgFront, 0, 0, BOMB_GAME_WIDTH, BOMB_GAME_HEIGHT);
+        sfBuff.context.drawImage(imgEdge, 0, 0, BOMB_GAME_WIDTH, BOMB_GAME_HEIGHT);
         spriteScreen.image = sf;
         // Sprite表示
         game.createBoms();
@@ -162,8 +190,8 @@ window.onload = function()
         scene1.removeChild(game.restart);
         // ゲーム初期化
         game.timeLine = 0;
-        sf.context.drawImage(imgFront, 0, 0);
-        sfBuff.context.drawImage(imgEdge, 0, 0);
+        sf.context.drawImage(imgFront, 0, 0, BOMB_GAME_WIDTH, BOMB_GAME_HEIGHT);
+        sfBuff.context.drawImage(imgEdge, 0, 0, BOMB_GAME_WIDTH, BOMB_GAME_HEIGHT);
         spriteScreen.image = sf;
         // Sprite表示
         game.createBoms();
@@ -173,8 +201,11 @@ window.onload = function()
     // === シーン1 初回実行 ===
 
     scene1.addChild(spriteScreen);
-
     scene1.addChild(game.restart);
+    // アニメーション初期化（スタート画面から表示）
+    if (BOMB_GAME_ANIME_IMAGE > 0) {
+        scene1.addChild(animeSprite);
+    }
 
     game.replaceScene(scene1); // ゲームスタート
 
@@ -219,3 +250,42 @@ function clearBlock(x, y)
     sf.context.drawImage(sfBuff._element, x-16-4, y-16-4, 32+8, 32+8, x-16-4, y-16-4, 32+8, 32+8);
 };
 
+// --- アニメーション Sprite
+AnimeSprite = Class.create(Sprite,
+{
+    initialize:function()
+    {
+        var animeImg = game.assets["bomb_game_anime.jpg"];
+        animeWidth = animeImg.width;
+        animeHeight = animeImg.height;
+        Sprite.call(this, animeWidth, animeHeight / BOMB_GAME_ANIME_IMAGE);
+        this.image = animeImg;
+        var frameHeight = animeHeight / BOMB_GAME_ANIME_IMAGE;
+        this.init();
+    },
+    init:function()
+    {
+        this.frame = 0;
+        this.x = BOMB_GAME_ANIME_POSITION_X;
+        this.y = -BOMB_GAME_HEIGHT; // 非表示
+        this.time = 0;
+    },
+    onenterframe:function()
+    {
+        this.time++;
+        if (this.time < BOMB_GAME_ANIME_WAIT) {
+            return;
+        }
+
+        this.y = BOMB_GAME_ANIME_POSITION_Y; // 表示
+        for (var i = 0; i < BOMB_GAME_ANIME_IMAGE; i++) {
+            if (this.time == BOMB_GAME_ANIME_WAIT + (i * BOMB_GAME_ANIME_FRAME)) {
+                this.frame = i;
+            }
+        }
+        if (this.time >= BOMB_GAME_ANIME_WAIT + (BOMB_GAME_ANIME_IMAGE * BOMB_GAME_ANIME_FRAME)) {
+            this.time = 0;
+            this.y = -BOMB_GAME_HEIGHT; // 非表示
+        }
+    }
+});
