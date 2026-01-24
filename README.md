@@ -1,4 +1,4 @@
-# 爆裂BOMB (Bakuretu Bomb)
+# 爆裂BOMB (Bakuretu BOMB)
 
 [![タイトル画像](img/title.jpg)](https://bakuretuken.github.io/bakuretu-bomb/)
 
@@ -14,7 +14,8 @@
 
 爆裂BOMBは、HTML5 Canvasとenchant.jsを使用したシンプルなブラウザゲームです。
 
-落下するボムをクリックまたはタッチして、背景画像の一部を消去していきます。特殊な「爆裂ボム」も登場し、より大きな範囲を消去できます。
+落下するボムをクリックまたはタッチして、背景画像の一部を消去していきます。<br />
+特殊な「爆裂ボム」も登場し、より大きな範囲を消去できます。
 
 ## 主な特徴
 
@@ -26,8 +27,7 @@
 ## ゲームメカニクス
 
 - 落下するボムをクリックまたはタッチして背景画像の一部を消去
-- 20個に1個の割合で特殊な「爆裂」ボムが出現し、より大きな範囲を消去
-- 30秒の制限時間内に5個のボムが同時に落下
+- 特定の割合で特殊な「爆裂」ボムが出現し、より大きな範囲を消去
 - ブロックを消去すると下に隠れた画像が現れる
 
 ## サンプル
@@ -35,24 +35,20 @@
 
 ## インストール
 
-1. リポジトリをクローンまたはダウンロード
-```bash
-git clone https://github.com/yourusername/bomb_js.git
-cd bomb_js
-```
+1. 本リポジトリをクローンまたはダウンロード
 
 2. ローカル環境でWEBサーバ起動（ファイルをWebサーバーにアップロード）
 
 3. ブラウザで以下のファイルを開く
-   - `index.html` - 無音版
-   - `index_sound.html` - 音声付き版
+   - `index.html`
+   - `index_noanime.html` - アニメーションなしHTML
 
 ## 使用方法
 
 1. ゲーム開始後、画面上部から落下するボムが表示されます
 2. ボムをクリックまたはタッチして消去します
 3. 特殊な「爆裂」ボムが出現したら、より大きな範囲を消去できます
-4. 制限時間内にできるだけ多くのブロックを消去しましょう
+4. 画像を削るだけのツールなので、クリアはありません
 
 ## カスタマイズ
 
@@ -66,14 +62,8 @@ var BOMB_GAME_WIDTH  = 540;
 var BOMB_GAME_HEIGHT = 800;
 // フレームレート
 var BOMB_GAME_FPS = 12;
-// ゲーム時間（秒）
-var BOMB_GAME_LIMIT_TIME = 30;
-// タイマーの色指定
-var BOMB_GAME_TIMER_LABEL_COLOR = "black";
 // 爆裂ボムの出現頻度
 var BOMB_GAME_BAKURETU_BOMB_RATE = 20;
-// 効果音設定
-var BOMB_GAME_BAKURETU_BOMB_SOUND = "off";
 ```
 
 ### 画像カスタマイズ
@@ -88,29 +78,31 @@ var BOMB_GAME_BAKURETU_BOMB_SOUND = "off";
 
 ```
 bomb_js/
-├── index.html              # ゲームHTML（無音版）
-├── index_sound.html        # ゲームHTM+（音声付き）
-├── bakuretubomb106.js      # ゲームプログラム本体
+├── index.html              # ゲームHTML
+├── index_noanime.html      # ゲームHTML（アニメーションなし）
+├── bakuretubomb200.js      # ゲームプログラム本体
 ├── enchant.min.js          # enchant.jsゲームフレームワーク
 ├── bomb_sound.mp3          # 音声ファイル
 ├── bomb_sound.wav          # 音声ファイル
 ├── bomb_game_01.jpg        # ゲーム初期画像
 ├── bomb_game_02.jpg        # ボム破壊後画像
-├── bomb_game_03.jpg        # ボム破壊時の縁画像
+├── bomb_game_03.jpg        # ボム破壊時のフチ画像
 ├── bomb_icon_bomb.png      # ボムアイコン画像
 ├── bomb_icon_menu.png      # メニュー文字画像
+├── bomb_icon_pause.png     # ポーズアイコン画像
+├── bomb_icon_sound.png     # サウンドアイコン画像
 └── README.md               # このファイル
 ```
 
 ### ゲームの改造
 
-`index.html`の読み込みJSを`bakuretubomb106.js`を改造して使用してください。
+`index.html`の読み込みJSを`bakuretubomb200.js`を改造して使用してください。
 
 ```
-<script src="bakuretubomb106.js"></script>
+<script src="bakuretubomb200.js"></script>
 ```
 
-`bakuretubomb106.js`に対してコーディングを行い変更してください。<br />
+`bakuretubomb200.js`に対してコーディングを行い変更してください。<br />
 `enchant.js`というゲームエンジンを使用しています。
 
 手元のPCでWEBサーバを立ち上げるなどして、サーバ経由で動作確認を行ってください。<br />
@@ -130,9 +122,9 @@ php -S localhost:8000
 
 ## [オプション] アニメーション機能
 
-`anime_game`フォルダに「アニメーション機能を使用したゲーム」があります。
+`index.html` は「アニメーション機能を使用したHTML」です。<br />
 
-アニメーション機能を使用する場合は、`index.html`ファイル内の以下の変数を追加してください。
+アニメーション機能を使用する場合は、HTMLファイル内の以下の変数を追加してください。
 
 ```js
 ・・・省略・・・
@@ -146,7 +138,7 @@ var BOMB_GAME_ANIME_WAIT = 40; // アニメーション待ちフレーム数
 `BOMB_GAME_ANIME_IMAGE` で「アニメーション画像枚数」を設定することでアニメーション機能を使用できます。<br />
 
 ```js
-var BLOCK_GAME_ANIME_IMAGE = 5;
+var BLOCK_GAME_ANIME_IMAGE = 3;
 ```
 
 「bomb_game_anime.jpg」画像を用意してください。<br />
@@ -160,8 +152,8 @@ var BLOCK_GAME_ANIME_IMAGE = 5;
 アニメーション画像の表示位置を下記で設定します。
 
 ```js
-var BOMB_GAME_ANIME_POSITION_X = 196; // アニメーション画像X位置
-var BOMB_GAME_ANIME_POSITION_Y = 118; // アニメーション画像Y位置
+var BOMB_GAME_ANIME_POSITION_X = 172; // アニメーション画像X位置
+var BOMB_GAME_ANIME_POSITION_Y = 59;  // アニメーション画像Y位置
 ```
 
 `BOMB_GAME_ANIME_FRAME` で「アニメーションフレーム間隔」を設定することでアニメーション速度を調整できます（フレーム設定）<br />
@@ -170,12 +162,8 @@ var BOMB_GAME_ANIME_POSITION_Y = 118; // アニメーション画像Y位置
 `BOMB_GAME_ANIME_WAIT` で「アニメーション待ち時間」を設定することでアニメーションの待ち時間を調整できます（フレーム設定）<br />
 待ち時間が大きいほどアニメーションとアニメーションの間隔が長くなります。
 
-上記の設定だと、40フレーム経つと5枚のアニメーション画像が1フレーム間隔で表示されます。そして、また40フレームの待ちに入ります。<br />
-表示座標位置は (196, 118) です。
-
-**↓** リンククリックでアニメー書のプションのゲーム開始
-
-[**アニメーション ゲーム開始**](https://bakuretuken.github.io/bakuretu-bonba/)
+上記の設定だと、40フレーム経つと3枚のアニメーション画像が1フレーム間隔で表示されます。そして、また40フレームの待ちに入ります。<br />
+表示座標位置は (172, 59) です。
 
 【特記事項】<br />
 正しい大きさでアニメ画像を作っても表示画像サイズがズレて表示されてしまう場合は、JPEG の DPI の問題の可能性が高いです。すべての JPEG画像の DPI を 72 に設定してください。
