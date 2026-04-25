@@ -80,7 +80,7 @@ var BOMB_GAME_BAKURETU_BOMB_RATE = 20;
 bomb_js/
 ├── index.html              # ゲームHTML
 ├── index_noanime.html      # ゲームHTML（アニメーションなし）
-├── bakuretubomb200.js      # ゲームプログラム本体
+├── bakuretubomb201.js      # ゲームプログラム本体
 ├── enchant.min.js          # enchant.jsゲームフレームワーク
 ├── bomb_sound.mp3          # 音声ファイル
 ├── bomb_sound.wav          # 音声ファイル
@@ -96,13 +96,12 @@ bomb_js/
 
 ### ゲームの改造
 
-`index.html`の読み込みJSを`bakuretubomb200.js`を改造して使用してください。
+`index.html`の読み込みJS `bakuretubomb201.js` を改造して使用してください。
 
 ```
-<script src="bakuretubomb200.js"></script>
+<script src="bakuretubomb201.js"></script>
 ```
 
-`bakuretubomb200.js`に対してコーディングを行い変更してください。<br />
 `enchant.js`というゲームエンジンを使用しています。
 
 手元のPCでWEBサーバを立ち上げるなどして、サーバ経由で動作確認を行ってください。<br />
@@ -118,7 +117,6 @@ npx http-server -p 8000
 # PHPの場合
 php -S localhost:8000
 ```
-
 
 ## [オプション] アニメーション機能
 
@@ -173,6 +171,8 @@ var BOMB_GAME_ANIME_POSITION_Y = 59;  // アニメーション画像Y位置
 - 画像を更新したのに反映されない場合は、ブラウザのキャッシュをクリアしてください
    - SHIFT + Ctrl + R (Windows)
    - Shift + Command + R (Mac)
+- WEBサーバ経由で表示させた場合、サーバ設定によってはコマンドでブラウザキャッシュがクリアされない場合があります。
+   - ブラウザ設定から該当ドメインのキャッシュクリアを行ってください
 
 ## ライセンス
 

@@ -1,5 +1,5 @@
 /**
- * 爆裂BOMB JavaScript版 ver2.00
+ * 爆裂BOMB JavaScript版 ver2.01
  */
 
 // アニメーション設定
@@ -77,6 +77,7 @@ window.onload = function()
         pauseSprite = new PauseSprite();
         pauseSprite.addEventListener("touchstart", function(e)
         {
+            console.log("Pause");
             game.isPause = !game.isPause;
             pauseSprite.frame = game.isPause ? 1 : 0;
             for (var n = 0; n < 5; n++) {
@@ -87,6 +88,7 @@ window.onload = function()
         soundSprite = new SoundSprite();
         soundSprite.addEventListener("touchstart", function(e)
         {
+            console.log("Sound");
             game.isSound = !game.isSound;
             soundSprite.frame = game.isSound ? 1 : 0;
         });
@@ -194,11 +196,11 @@ window.onload = function()
 
         // === シーン1 初回実行 ===
         scene1.addChild(spriteScreen);
-        scene1.addChild(game.restart);
         // アニメーション初期化（スタート画面から表示）
         if (BOMB_GAME_ANIME_IMAGE > 0) {
             scene1.addChild(animeSprite);
         }
+        scene1.addChild(game.restart);
         // PauseSpriteとSoundSpriteを最後に追加して前面に表示
         scene1.addChild(pauseSprite);
         scene1.addChild(soundSprite);
@@ -284,7 +286,7 @@ AnimeSprite = Class.create(Sprite,
     }
 });
 
-// ---
+// --- 
 PauseSprite = Class.create(Sprite,
 {
     initialize:function()
@@ -299,7 +301,7 @@ PauseSprite = Class.create(Sprite,
     }
 });
 
-// ---
+// --- 
 SoundSprite = Class.create(Sprite,
 {
     initialize:function()
