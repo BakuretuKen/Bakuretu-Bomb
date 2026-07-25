@@ -7,9 +7,9 @@
 </head>
 <body style="margin:0; padding: 0; background-color: #ccc; overscroll-behavior-y: none;">
 
-<div style="display: grid; place-items: center; height: 100vh;">
-<div id="game-stage" style="cursor: pointer; margin: 0 auto;"></div>
-</div>
+<!-- ステージは表示領域全体を覆う。中央寄せは Phaser の Scale Manager（autoCenter）に任せる -->
+<!-- 100vh はスマホでは URL バー等を含んだ高さになり上下中央がずれるため、絶対配置 + height:100% を使う -->
+<div id="game-stage" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer;"></div>
 
 <script type="text/javascript" charset="utf-8">
 
